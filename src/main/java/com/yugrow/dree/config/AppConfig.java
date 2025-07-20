@@ -12,12 +12,12 @@ import java.util.Collections;
 @Configuration
 @EnableCaching
 public class AppConfig {
-    
+
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .servers(Collections.singletonList(
-                        new Server().url("/ap1/v1").description("HTTPS Server")
+                        new Server().description("HTTPS Server")
                 ))
                 .info(new Info()
                         .title("Dynamic Rule Evaluation Service APIS")

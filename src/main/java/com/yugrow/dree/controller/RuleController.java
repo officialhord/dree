@@ -3,6 +3,7 @@ package com.yugrow.dree.controller;
 import com.yugrow.dree.entity.ActionableRule;
 import com.yugrow.dree.entity.Event;
 import com.yugrow.dree.entity.UserProfile;
+import com.yugrow.dree.payload.CreateProfileRequest;
 import com.yugrow.dree.payload.EvaluationResult;
 import com.yugrow.dree.repository.EventRepository;
 import com.yugrow.dree.repository.RuleRepository;
@@ -11,6 +12,8 @@ import com.yugrow.dree.service.RuleEngineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -42,7 +45,11 @@ public class RuleController {
     }
 
     @PostMapping("/profiles")
-    public ResponseEntity<UserProfile> createOrUpdateProfile(@RequestBody UserProfile profile) {
-        return ResponseEntity.ok(userProfileRepository.save(profile));
+    public ResponseEntity<?> createOrUpdateProfile(@RequestBody CreateProfileRequest profile) {
+        Optional<UserProfile> existingProfile = userProfileRepository.findByEmail(profile.getEmail());
+        if (existingProfile.isPresent()) {
+            return ResponseEntity.badRequest().body("Profile with this email already exists");
+        }
+        return ResponseEntity.ok(userProfileRepository.save(new UserProfile(profile)));
     }
 }

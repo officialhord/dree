@@ -1,6 +1,5 @@
 package com.yugrow.dree.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yugrow.dree.entity.ActionableRule;
 import com.yugrow.dree.entity.Event;
 import com.yugrow.dree.entity.UserProfile;
