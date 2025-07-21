@@ -3,12 +3,19 @@ package com.yugrow.dree.model.rule.types;
 import com.yugrow.dree.entity.Event;
 import com.yugrow.dree.model.rule.EvaluationContext;
 import com.yugrow.dree.model.rule.Rule;
+import lombok.Data;
+import org.springframework.data.annotation.TypeAlias;
 
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
 
-public record SequenceRule(List<String> events, int withinMinutes) implements Rule {
+@Data
+//@TypeAlias("sequence")
+public final class SequenceRule extends Rule {
+
+    List<String> events;
+    int withinMinutes;
 
     @Override
     public boolean evaluate(EvaluationContext context) {
