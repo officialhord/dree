@@ -1,10 +1,12 @@
-package com.yugrow.dree.model.rule;
 
+package com.yugrow.dree.model.rule;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.yugrow.dree.model.rule.types.*;
+import lombok.Data;
 
+@Data
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -20,7 +22,7 @@ import com.yugrow.dree.model.rule.types.*;
         @JsonSubTypes.Type(value = EventCountRule.class, name = "event_count"),
         @JsonSubTypes.Type(value = SequenceRule.class, name = "sequence")
 })
-public interface Rule {
+public abstract class Rule {
 
-    boolean evaluate(EvaluationContext context);
+    public abstract boolean evaluate(EvaluationContext context);
 }

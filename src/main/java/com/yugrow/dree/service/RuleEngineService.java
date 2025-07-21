@@ -38,16 +38,16 @@ public class RuleEngineService {
         List<Event> events = eventRepository.findByUserIdAndTimestampAfter(userId, eventWindowStart);
 
         log.info("Evaluating rule: {} for user: {} with {} events in the last 30 days",
-                rule.name(), profile.getId(), events.size());
+                rule.getName(), profile.getId(), events.size());
 
         EvaluationContext context = new EvaluationContext(ZonedDateTime.now(), events, profile);
 
         log.info("Evaluation context created: {}", context);
-        boolean triggered = rule.conditions().evaluate(context);
+        boolean triggered = rule.getType().evaluate(context);
 
         if (triggered) {
-            rule.actions().forEach(actionService::execute);
-            return new EvaluationResult(true, rule.actions());
+            rule.getActions().forEach(actionService::execute);
+            return new EvaluationResult(true, rule.getActions());
         } else {
             return new EvaluationResult(false, Collections.emptyList());
         }

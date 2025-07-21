@@ -17,5 +17,6 @@ import lombok.Data;
         @JsonSubTypes.Type(value = LogAnalyticsAction.class, name = "log_to_analytics")
 })
 public abstract class Action {
+
     public abstract String execute();
 }

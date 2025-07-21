@@ -3,12 +3,16 @@ package com.yugrow.dree.model.rule.types;
 import com.yugrow.dree.entity.UserProfile;
 import com.yugrow.dree.model.rule.EvaluationContext;
 import com.yugrow.dree.model.rule.Rule;
+import lombok.Data;
 import org.springframework.data.annotation.TypeAlias;
 
 import java.util.Objects;
 
-@TypeAlias("attribute_match")
-public record AttributeMatchRule(String field, String operator, String value) implements Rule {
+@Data
+//@TypeAlias("attribute_match")
+public final class AttributeMatchRule extends Rule {
+
+    String field, operator, value;
 
     @Override
     public boolean evaluate(EvaluationContext context) {

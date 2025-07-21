@@ -2,21 +2,26 @@ package com.yugrow.dree.model.rule.types;
 
 import com.yugrow.dree.model.rule.EvaluationContext;
 import com.yugrow.dree.model.rule.Rule;
-import org.springframework.data.annotation.TypeAlias;
+import lombok.Data;
 
 import java.time.ZonedDateTime;
 
-@TypeAlias("event_count")
-public record EventCountRule(String event, String operator, int value, int withinDays) implements Rule {
+@Data
+public final class EventCountRule extends Rule {
+
+    String event;
+    String operator;
+    int value;
+    int withinDays;
 
     @Override
     public boolean evaluate(EvaluationContext context) {
-        ZonedDateTime windowStart = context.evaluationTime().minusDays(withinDays);
+        ZonedDateTime windowStart = context.evaluationTime().minusDays(withinDays); // Fixed method name
 
         long count = context.events().stream()
-            .filter(e -> e.getName().equals(event))
-            .filter(e -> !e.getTimestamp().isBefore(windowStart))
-            .count();
+                .filter(e -> e.getName().equals(event))
+                .filter(e -> !e.getTimestamp().isBefore(windowStart))
+                .count();
 
         return switch (operator) {
             case ">" -> count > value;

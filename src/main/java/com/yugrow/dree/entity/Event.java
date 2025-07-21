@@ -1,7 +1,10 @@
 package com.yugrow.dree.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.yugrow.dree.payload.CreateEventRequest;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,6 +14,9 @@ import java.util.UUID;
 
 @Data
 @Document(collection = "events")
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {
 
     @Id
