@@ -21,5 +21,6 @@ import com.yugrow.dree.model.rule.types.*;
         @JsonSubTypes.Type(value = SequenceRule.class, name = "sequence")
 })
 public interface Rule {
+
     boolean evaluate(EvaluationContext context);
 }

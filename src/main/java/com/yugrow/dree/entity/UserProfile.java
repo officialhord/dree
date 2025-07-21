@@ -1,8 +1,10 @@
 package com.yugrow.dree.entity;
 
 import com.yugrow.dree.payload.CreateProfileRequest;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,6 +12,8 @@ import java.util.UUID;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "user_profiles")
 public class UserProfile {
 
@@ -21,11 +25,9 @@ public class UserProfile {
 
 
     public UserProfile(CreateProfileRequest request) {
-        UserProfile.builder()
-                .id(UUID.randomUUID().toString())
-                .email(request.getEmail())
-                .country(request.getCountry())
-                .accountType(request.getAccountType())
-                .build();
+        this.id = UUID.randomUUID().toString();
+        this.email = request.getEmail();
+        this.country = request.getCountry();
+        this.accountType = request.getAccountType();
     }
 }

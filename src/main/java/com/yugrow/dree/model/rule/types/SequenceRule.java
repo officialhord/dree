@@ -3,11 +3,13 @@ package com.yugrow.dree.model.rule.types;
 import com.yugrow.dree.entity.Event;
 import com.yugrow.dree.model.rule.EvaluationContext;
 import com.yugrow.dree.model.rule.Rule;
+import org.springframework.data.annotation.TypeAlias;
 
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
 
+@TypeAlias("sequence")
 public record SequenceRule(List<String> events, int withinMinutes) implements Rule {
 
     @Override
